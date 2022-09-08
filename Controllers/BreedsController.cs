@@ -23,22 +23,25 @@ namespace Pick_a_Breed.Controllers
         // GET: Breeds
         public async Task<IActionResult> Index()
         {
-              return _context.Breed != null ? 
-                          View(await _context.Breed.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
-        }  
+            return _context.Breed != null ?
+                        View(await _context.Breed.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
+        }
         public async Task<IActionResult> SearchForm()
         {
-              return _context.Breed != null ? 
-                          View(await _context.Breed.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
+            return _context.Breed != null ?
+                        View(await _context.Breed.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
         }
-        public async Task<IActionResult> SearchResults(string SearchPhrase)
+        public async Task<IActionResult> SearchResults(string SearchPhrase, SizeEnum SearchSize)
         {
-              return _context.Breed != null ? 
-                          View("Index", await _context.Breed.Where(j => j.Description.Contains(SearchPhrase)).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
+            var x = SearchSize;
+            return _context.Breed != null ?
+                        View("Index", await _context.Breed.Where(j => j.Description.Contains(SearchPhrase) && j.Size.Equals(SearchSize)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
         }
+
+
 
         // GET: Breeds/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -59,7 +62,6 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Create
-        [Authorize]
         public IActionResult Create()
         {
             return View();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pick_a_Breed.Data;
 
@@ -11,9 +12,10 @@ using Pick_a_Breed.Data;
 namespace Pick_a_Breed.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220907232259_Perk")]
+    partial class Perk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,12 +240,33 @@ namespace Pick_a_Breed.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
                     b.ToTable("Breed");
+                });
+
+            modelBuilder.Entity("Pick_a_Breed.Models.Perk", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("Breedid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Breedid");
+
+                    b.ToTable("Perk");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -295,6 +318,18 @@ namespace Pick_a_Breed.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Pick_a_Breed.Models.Perk", b =>
+                {
+                    b.HasOne("Pick_a_Breed.Models.Breed", null)
+                        .WithMany("Perks")
+                        .HasForeignKey("Breedid");
+                });
+
+            modelBuilder.Entity("Pick_a_Breed.Models.Breed", b =>
+                {
+                    b.Navigation("Perks");
                 });
 #pragma warning restore 612, 618
         }
