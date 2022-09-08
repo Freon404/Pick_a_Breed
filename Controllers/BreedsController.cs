@@ -35,9 +35,20 @@ namespace Pick_a_Breed.Controllers
         }
         public async Task<IActionResult> SearchResults(string SearchPhrase, SizeEnum SearchSize)
         {
-            var x = SearchSize;
+            var SplitedSearchPhrase = SearchPhrase.Split(",");
+            var Items = _context.Breed.ToList();
+            var ItemsSelected  = new List<Breed>();
+            foreach (var Item in Items)
+            {
+                var ItemSplited = Item.Description.Split(",");
+                if (SplitedSearchPhrase.All(elem => ItemSplited.Contains(elem)))
+                {
+                    ItemsSelected.Add(Item);
+                }
+            }
+            var Result = ItemsSelected.Where(j => j.Size.Equals(SearchSize));
             return _context.Breed != null ?
-                        View("Index", await _context.Breed.Where(j => j.Description.Contains(SearchPhrase) && j.Size.Equals(SearchSize)).ToListAsync()) :
+                        View("Index", Result) :
                         Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
         }
 
@@ -62,6 +73,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -86,6 +98,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Breed == null)
@@ -104,6 +117,7 @@ namespace Pick_a_Breed.Controllers
         // POST: Breeds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description")] Breed breed)
@@ -137,6 +151,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Breed == null)
@@ -155,6 +170,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // POST: Breeds/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

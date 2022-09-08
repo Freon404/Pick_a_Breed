@@ -2,21 +2,22 @@
     ViewData["Title"] = "SearchForm";
 }
 
-<h1>SearchForm</h1>
+<h1>Search for your perfect dog</h1>
 
-<h4>Breed</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="SearchResults">
             <div class="form-group">
-                <label for="SearchPhrase" class="control-label"></label>
+                <label for="SearchPhrase" class="control-label">Perks</label>
                 <input name="SearchPhrase" class="form-control" />
             </div>
+            <hr />
             <div class="form-group">
-                <label for="SearchSize" class="control-label"></label>
+                <label for="SearchSize" class="control-label">Choose size</label>
                 <select name="SearchSize" asp-items="Html.GetEnumSelectList<SizeEnum>()"></select>
             </div>
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
