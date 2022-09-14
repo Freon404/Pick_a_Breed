@@ -85,7 +85,7 @@ namespace Pick_a_Breed.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name,Size,Description")] Breed breed)
+        public async Task<IActionResult> Create([Bind("id,Name,Size,Description,Favourite")] Breed breed)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace Pick_a_Breed.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description")] Breed breed)
+        public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description,Favourite")] Breed breed)
         {
             if (id != breed.id)
             {

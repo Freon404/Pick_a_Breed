@@ -18,7 +18,7 @@ namespace Pick_a_Breed.Models
         [EnumDataType(typeof(SizeEnum))]
         public SizeEnum Size { get; set; }
         public string Description { get; set; }
-
+        public bool Favourite { get; set; }
         public Breed(string name, SizeEnum size, string description)
         {
             Name = name;
