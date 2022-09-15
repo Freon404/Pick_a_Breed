@@ -1,5 +1,12 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using Pick_a_Breed
+@inject UserManager<IdentityUser> _userManager
+@inject RoleManager<IdentityRole> _roleManager
+
+@{
     ViewData["Title"] = "Home Page";
+
+    Roles.Create(_userManager, _roleManager);
 }
 
 <div class="text-center">

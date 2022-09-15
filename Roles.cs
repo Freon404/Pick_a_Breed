@@ -12,11 +12,11 @@ namespace Pick_a_Breed
         
         public  static void CreateUsers(UserManager<IdentityUser> userManager) 
         {
-            if (userManager.FindByNameAsync("admin").Result == null)
+            if (userManager.FindByNameAsync("admin@admin.com").Result == null)
             {
                 var user = new IdentityUser
                 {
-                    UserName = "admin",
+                    UserName = "admin@admin.com",
                     Email = "admin@admin.com"
                 };
                 var result = userManager.CreateAsync(user, "Pa$$word1").Result;
@@ -34,7 +34,7 @@ namespace Pick_a_Breed
                 {
                     Name = "Administrator"
                 };
-                roleManager.CreateAsync(role);
+                roleManager.CreateAsync(role).Wait();
             }
         }
     }

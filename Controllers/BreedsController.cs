@@ -73,7 +73,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Create
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -82,7 +82,7 @@ namespace Pick_a_Breed.Controllers
         // POST: Breeds/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Name,Size,Description,Favourite")] Breed breed)
@@ -98,7 +98,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Breed == null)
@@ -117,7 +117,7 @@ namespace Pick_a_Breed.Controllers
         // POST: Breeds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description,Favourite")] Breed breed)
@@ -151,7 +151,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // GET: Breeds/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Breed == null)
@@ -170,7 +170,7 @@ namespace Pick_a_Breed.Controllers
         }
 
         // POST: Breeds/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

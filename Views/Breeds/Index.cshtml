@@ -6,9 +6,17 @@
 
 <h1>All breeds</h1>
 
-<p>
-    <a asp-action="Create">Add new breed</a>
-</p>
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Administrator"))
+    {
+        <p>
+            <a asp-action="Create">Add new breed</a>
+        </p>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -43,10 +51,20 @@
                 @Html.DisplayFor(modelItem => item.Favourite)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a><span> |</span>
+                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        }
+                    }
             </td>
+
+               
+
+           
         </tr>
 }
     </tbody>
