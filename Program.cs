@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pick_a_Breed;
 using Pick_a_Breed.Data;
+using Pick_a_Breed.Models;
 
 internal class Program
 {
@@ -16,7 +17,7 @@ internal class Program
             options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false;
+        builder.Services.AddDefaultIdentity<ApplicationUser>(options => { options.SignIn.RequireConfirmedAccount = false;
                                                                        options.SignIn.RequireConfirmedEmail = false;
         })
             .AddRoles<IdentityRole>()

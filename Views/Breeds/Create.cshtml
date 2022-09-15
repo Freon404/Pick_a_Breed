@@ -33,6 +33,11 @@
                 <span asp-validation-for="Favourite" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Features" class="control-label"></label>
+                <select asp-for="Features" asp-items="@(new SelectList(ViewBag.FeatureList, "Value", "Text"))"></select>
+                <span asp-validation-for="Features" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

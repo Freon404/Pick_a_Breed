@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+//using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +24,8 @@ namespace Pick_a_Breed.Controllers
         // GET: Breeds
         public async Task<IActionResult> Index()
         {
+            
+
             return _context.Breed != null ?
                         View(await _context.Breed.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Breed'  is null.");
@@ -76,6 +79,18 @@ namespace Pick_a_Breed.Controllers
         [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
+            var FeatureList = (from f in _context.Feature
+                               select new SelectListItem()
+                               {
+                                   Text = f.Name,
+                                   Value = f.Id.ToString()
+                               }).ToList();
+            FeatureList.Insert(0, new SelectListItem()
+            {
+                Text = "--Select--",
+                Value = "select"
+            });
+            ViewBag.FeatureList = FeatureList;
             return View();
         }
 
@@ -85,7 +100,7 @@ namespace Pick_a_Breed.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name,Size,Description,Favourite")] Breed breed)
+        public async Task<IActionResult> Create([Bind("id,Name,Size,Description,Favourite,Features")] Breed breed)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +135,7 @@ namespace Pick_a_Breed.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description,Favourite")] Breed breed)
+        public async Task<IActionResult> Edit(Guid id, [Bind("id,Name,Size,Description,Favourite,Features")] Breed breed)
         {
             if (id != breed.id)
             {

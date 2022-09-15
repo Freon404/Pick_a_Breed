@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Pick_a_Breed.Models;
 
 namespace Pick_a_Breed
 {
     public static class Roles
     {
-        public  static void Create(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
+        public  static void Create(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) 
         {
             CreateRoles(roleManager);
             CreateUsers(userManager);
         }
         
-        public  static void CreateUsers(UserManager<IdentityUser> userManager) 
+        public  static void CreateUsers(UserManager<ApplicationUser> userManager) 
         {
             if (userManager.FindByNameAsync("admin@admin.com").Result == null)
             {
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = "admin@admin.com",
                     Email = "admin@admin.com"

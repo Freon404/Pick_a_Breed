@@ -19,11 +19,14 @@ namespace Pick_a_Breed.Models
         public SizeEnum Size { get; set; }
         public string Description { get; set; }
         public bool Favourite { get; set; }
-        public Breed(string name, SizeEnum size, string description)
+
+        public List<Feature> ? Features { get; set; }
+        public Breed(string name, SizeEnum size, string description, List<Feature> features)
         {
             Name = name;
             Size = size;
             Description = description;
+            Features = features;
         }
 
         public Breed()

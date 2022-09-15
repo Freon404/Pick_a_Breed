@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Pick_a_Breed.Data;
 using Pick_a_Breed.Models;
 using System.Diagnostics;
 
